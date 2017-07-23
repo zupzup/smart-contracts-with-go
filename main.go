@@ -17,7 +17,7 @@ func main() {
 	auth := bind.NewKeyedTransactor(key)
 
 	alloc := make(core.GenesisAlloc)
-	alloc[auth.From] = core.GenesisAccount{Balance: big.NewInt(10000000000)}
+	alloc[auth.From] = core.GenesisAccount{Balance: big.NewInt(133700000)}
 	sim := backends.NewSimulatedBackend(alloc)
 
 	// deploy contract
@@ -46,7 +46,7 @@ func main() {
 	contract.SubmitProject(&bind.TransactOpts{
 		From:     auth.From,
 		Signer:   auth.Signer,
-		GasLimit: big.NewInt(2141592),
+		GasLimit: big.NewInt(2381623),
 		Value:    big.NewInt(10),
 	}, "test project", "http://www.example.com")
 
