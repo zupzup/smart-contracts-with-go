@@ -22,6 +22,6 @@ abigen --sol=Contract.sol --pkg=main --out=contract.go
 ## Running
 
 ```bash
-go run main.go
+go build . && ./smart-contracts-with-go
 ```
 

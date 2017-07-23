@@ -20,25 +20,50 @@ func main() {
 	alloc[auth.From] = core.GenesisAccount{Balance: big.NewInt(10000000000)}
 	sim := backends.NewSimulatedBackend(alloc)
 
-	addr, _, contract, err := DeployWinnerTakesAll(auth, sim, big.NewInt(10), big.NewInt(makeTimestamp(time.Now().Add(2*time.Minute))), big.NewInt(makeTimestamp(time.Now().Add(5*time.Minute))))
+	// deploy contract
+	addr, _, contract, err := DeployWinnerTakesAll(auth, sim, big.NewInt(10), big.NewInt(time.Now().Add(2*time.Minute).Unix()), big.NewInt(time.Now().Add(5*time.Minute).Unix()))
 	if err != nil {
-		log.Fatalf("Failed to deploy new token contract: %v", err)
+		log.Fatalf("could not deploy contract: %v", err)
 	}
+
+	// interact with contract
 	fmt.Printf("Contract deployed to %s\n", addr.String())
 	deadlineCampaign, _ := contract.DeadlineCampaign(nil)
-	fmt.Printf("Pre-mining Campaign Deadline: %d\n", deadlineCampaign)
+	fmt.Printf("Pre-mining Campaign Deadline: %s\n", deadlineCampaign)
 
-	deadlineCampaign, _ = contract.DeadlineCampaign(&bind.CallOpts{Pending: true})
-	fmt.Printf("Pre-mining pending Campaign Deadline: %d\n", deadlineCampaign)
-
+	fmt.Println("Mining...")
+	// simulate mining
 	sim.Commit()
 
 	postDeadlineCampaign, _ := contract.DeadlineCampaign(nil)
-	fmt.Printf("Post-mining Campaign Deadline: %d\n", postDeadlineCampaign)
-	postDeadlineProjects, _ := contract.DeadlineProjects(nil)
-	fmt.Printf("Post-mining Projects Deadline: %d\n", postDeadlineProjects)
-}
+	fmt.Printf("Post-mining Campaign Deadline: %s\n", time.Unix(postDeadlineCampaign.Int64(), 0))
 
-func makeTimestamp(t time.Time) int64 {
-	return t.UnixNano() / int64(time.Millisecond)
+	// create a project
+	numOfProjects, _ := contract.NumberOfProjects(nil)
+	fmt.Printf("Number of Projects before: %d\n", numOfProjects)
+
+	fmt.Println("Adding new project...")
+	contract.SubmitProject(&bind.TransactOpts{
+		From:     auth.From,
+		Signer:   auth.Signer,
+		GasLimit: big.NewInt(2141592),
+		Value:    big.NewInt(10),
+	}, "test project", "http://www.example.com")
+
+	fmt.Println("Mining...")
+	sim.Commit()
+
+	numOfProjects, _ = contract.NumberOfProjects(nil)
+	fmt.Printf("Number of Projects after: %d\n", numOfProjects)
+	info, _ := contract.GetProjectInfo(nil, auth.From)
+	fmt.Printf("Project Info: %v\n", info)
+
+	// instantiate deployed contract
+	fmt.Printf("Instantiating contract at address %s...\n", auth.From.String())
+	instContract, err := NewWinnerTakesAll(addr, sim)
+	if err != nil {
+		log.Fatalf("could not instantiate contract: %v", err)
+	}
+	numOfProjects, _ = instContract.NumberOfProjects(nil)
+	fmt.Printf("Number of Projects of instantiated Contract: %d\n", numOfProjects)
 }
