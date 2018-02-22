@@ -22,7 +22,7 @@ contract WinnerTakesAll {
 
     function WinnerTakesAll(uint _minimumEntryFee, uint _durationProjects, uint _durationCampaign) public {
         if (_durationCampaign <= _durationProjects) {
-            throw;
+            revert();
         }
         minimumEntryFee = _minimumEntryFee;
         deadlineProjects = now + _durationProjects* 1 seconds;
@@ -32,10 +32,10 @@ contract WinnerTakesAll {
     }
     function submitProject(string name, string url) payable public returns (bool success) {
         if (msg.value < minimumEntryFee) {
-            throw;
+            revert();
         }
         if (now > deadlineProjects) {
-            throw;
+            revert();
         }
         if (!projects[msg.sender].initialized) {
             projects[msg.sender] = Project(msg.sender, name, url, 0, true);
@@ -49,13 +49,13 @@ contract WinnerTakesAll {
     }
     function supportProject(address addr) payable public returns (bool success) {
         if (msg.value <= 0) {
-            throw;
+            revert();
         }
         if (now > deadlineCampaign || now <= deadlineProjects) {
-            throw;
+            revert();
         }
         if (!projects[addr].initialized) {
-            throw;
+            revert();
         }
         projects[addr].funds += msg.value;
         if (projects[addr].funds > winningFunds) {
@@ -66,13 +66,13 @@ contract WinnerTakesAll {
         return true;
     }
     function getProjectInfo(address addr) public constant returns (string name, string url, uint funds) {
-        var project = projects[addr];
+        Project storage project = projects[addr];
         if (!project.initialized) {
-            throw;
+            revert();
         }
         return (project.name, project.url, project.funds);
     }
-    function finish() {
+    function finish() public {
         if (now >= deadlineCampaign) {
             PayedOutTo(winningAddress, winningFunds);
             selfdestruct(winningAddress);

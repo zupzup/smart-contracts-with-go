@@ -1,5 +1,5 @@
-// This file is an automatically generated Go binding. Do not modify as any
-// change will likely be lost upon the next re-generation!
+// Code generated - DO NOT EDIT.
+// This file is a generated binding and any manual changes will be lost.
 
 package main
 
@@ -7,17 +7,19 @@ import (
 	"math/big"
 	"strings"
 
+	ethereum "github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/event"
 )
 
 // WinnerTakesAllABI is the input ABI used to generate the binding from.
-const WinnerTakesAllABI = "[{\"constant\":true,\"inputs\":[],\"name\":\"deadlineCampaign\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"winningAddress\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getProjectInfo\",\"outputs\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"url\",\"type\":\"string\"},{\"name\":\"funds\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"winningFunds\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"url\",\"type\":\"string\"}],\"name\":\"submitProject\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"projectAddresses\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"supportProject\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"finish\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberOfProjects\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"deadlineProjects\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"_minimumEntryFee\",\"type\":\"uint256\"},{\"name\":\"_durationProjects\",\"type\":\"uint256\"},{\"name\":\"_durationCampaign\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"name\",\"type\":\"string\"},{\"indexed\":false,\"name\":\"url\",\"type\":\"string\"},{\"indexed\":false,\"name\":\"initialized\",\"type\":\"bool\"}],\"name\":\"ProjectSubmitted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"ProjectSupported\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"winningFunds\",\"type\":\"uint256\"}],\"name\":\"PayedOutTo\",\"type\":\"event\"}]"
+const WinnerTakesAllABI = "[{\"constant\":true,\"inputs\":[],\"name\":\"deadlineCampaign\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"winningAddress\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getProjectInfo\",\"outputs\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"url\",\"type\":\"string\"},{\"name\":\"funds\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"winningFunds\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"url\",\"type\":\"string\"}],\"name\":\"submitProject\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"projectAddresses\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"supportProject\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"finish\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberOfProjects\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"deadlineProjects\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_minimumEntryFee\",\"type\":\"uint256\"},{\"name\":\"_durationProjects\",\"type\":\"uint256\"},{\"name\":\"_durationCampaign\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"name\",\"type\":\"string\"},{\"indexed\":false,\"name\":\"url\",\"type\":\"string\"},{\"indexed\":false,\"name\":\"initialized\",\"type\":\"bool\"}],\"name\":\"ProjectSubmitted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"ProjectSupported\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"winningFunds\",\"type\":\"uint256\"}],\"name\":\"PayedOutTo\",\"type\":\"event\"}]"
 
 // WinnerTakesAllBin is the compiled bytecode used for deploying new contracts.
-const WinnerTakesAllBin = `0x6060604052341561000c57fe5b604051606080610aef8339810160409081528151602083015191909201515b8181116100385760006000fd5b600083815542838101600155820160025560048054600160a060020a03191633600160a060020a03161790556003555b5050505b610a748061007b6000396000f300606060405236156100a15763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633356331d81146100a35780633ea8b3bc146100c557806347ee45b9146100f15780637ecdf746146102065780637ee3e74f14610228578063cc13fd3b146102c7578063cf5e9747146102f6578063d56b28891461031e578063db5e4c7f14610330578063eb1f9d3914610352575bfe5b34156100ab57fe5b6100b3610374565b60408051918252519081900360200190f35b34156100cd57fe5b6100d561037a565b60408051600160a060020a039092168252519081900360200190f35b34156100f957fe5b61010d600160a060020a0360043516610389565b604080519081018290526060808252845190820152835181906020808301916080840191880190808383821561015e575b80518252602083111561015e57601f19909201916020918201910161013e565b505050905090810190601f16801561018a5780820380516001836020036101000a031916815260200191505b50838103825285518152855160209182019187019080838382156101c9575b8051825260208311156101c957601f1990920191602091820191016101a9565b505050905090810190601f1680156101f55780820380516001836020036101000a031916815260200191505b509550505050505060405180910390f35b341561020e57fe5b6100b361050b565b60408051918252519081900360200190f35b6102b3600480803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284375050604080516020601f89358b0180359182018390048302840183019094528083529799988101979196509182019450925082915084018382808284375094965061051195505050505050565b604080519115158252519081900360200190f35b34156102cf57fe5b6100d56004356107b5565b60408051600160a060020a039092168252519081900360200190f35b6102b3600160a060020a03600435166107e7565b604080519115158252519081900360200190f35b341561032657fe5b61032e6108fb565b005b341561033857fe5b6100b3610960565b60408051918252519081900360200190f35b341561035a57fe5b6100b3610966565b60408051918252519081900360200190f35b60025481565b600454600160a060020a031681565b61039161096c565b61039961096c565b600160a060020a0383166000908152600560205260408120600481015460ff1615156103c55760006000fd5b80600101816002018260030154828054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156104675780601f1061043c57610100808354040283529160200191610467565b820191906000526020600020905b81548152906001019060200180831161044a57829003601f168201915b5050855460408051602060026001851615610100026000190190941693909304601f8101849004840282018401909252818152959850879450925084019050828280156104f55780601f106104ca576101008083540402835291602001916104f5565b820191906000526020600020905b8154815290600101906020018083116104d857829003601f168201915b505050505091509350935093505b509193909250565b60035481565b60006000543410156105235760006000fd5b6001544211156105335760006000fd5b600160a060020a03331660009081526005602052604090206004015460ff1615156107ab576040805160a08101825233600160a060020a03908116808352602080840188815284860188905260006060860181905260016080870181905293815260058352959095208451815473ffffffffffffffffffffffffffffffffffffffff1916941693909317835593518051939492936105d99392850192919091019061097e565b50604082015180516105f591600284019160209091019061097e565b50606082015160038201556080909101516004909101805460ff1916911515919091179055600680546001810161062c83826109fd565b916000526020600020900160005b8154600160a060020a03338181166101009490940a8481029202199092161790925560065460075560008181526005602090815260409182902060040154825193845260ff16801515606085015260808483018181528a519186019190915289517fa31614ce68f0443c0017f17939642084995e6a8b91736cac18520b829b157c3397508a958a959394909384019160a085019188019080838382156106fb575b8051825260208311156106fb57601f1990920191602091820191016106db565b505050905090810190601f1680156107275780820380516001836020036101000a031916815260200191505b5083810382528551815285516020918201918701908083838215610766575b80518252602083111561076657601f199092019160209182019101610746565b505050905090810190601f1680156107925780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390a15060016107af565b5060005b92915050565b60068054829081106107c357fe5b906000526020600020900160005b915054906101000a9004600160a060020a031681565b6000348190116107f75760006000fd5b60025442118061080957506001544211155b156108145760006000fd5b600160a060020a03821660009081526005602052604090206004015460ff16151561083f5760006000fd5b600160a060020a03821660009081526005602052604090206003908101805434019081905590549011156108af576004805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a038416908117909155600090815260056020526040902060039081015490555b60408051600160a060020a038416815234602082015281517fdaf9d988cff8579fb76d980affd31da41317fddf02e5134b4c00220b2cb2f374929181900390910190a15060015b919050565b600254421061095d5760045460035460408051600160a060020a039093168352602083019190915280517f8fba92fdc99409a91fdfb6b6b1da7ddf633a9c3cc3fc11f237866e54321d39a99281900390910190a1600454600160a060020a0316ff5b5b565b60075481565b60015481565b60408051602081019091526000815290565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106109bf57805160ff19168380011785556109ec565b828001600101855582156109ec579182015b828111156109ec5782518255916020019190600101906109d1565b5b506109f9929150610a27565b5090565b815481835581811511610a2157600083815260209020610a21918101908301610a27565b5b505050565b610a4591905b808211156109f95760008155600101610a2d565b5090565b905600a165627a7a7230582005ca13313b42d80dbbaef34fef590939f3262c0d6ec39330d638cf3b542245a80029`
+const WinnerTakesAllBin = `0x6060604052341561000f57600080fd5b604051606080610a9183398101604052808051919060200180519190602001805191505081811161003f57600080fd5b6000928355429182016001550160025560048054600160a060020a033316600160a060020a0319909116179055600355610a138061007e6000396000f3006060604052600436106100a35763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633356331d81146100a85780633ea8b3bc146100cd57806347ee45b9146100fc5780637ecdf746146102035780637ee3e74f14610216578063cc13fd3b146102b2578063cf5e9747146102c8578063d56b2889146102dc578063db5e4c7f146102f1578063eb1f9d3914610304575b600080fd5b34156100b357600080fd5b6100bb610317565b60405190815260200160405180910390f35b34156100d857600080fd5b6100e061031d565b604051600160a060020a03909116815260200160405180910390f35b341561010757600080fd5b61011b600160a060020a036004351661032c565b604051808060200180602001848152602001838103835286818151815260200191508051906020019080838360005b8381101561016257808201518382015260200161014a565b50505050905090810190601f16801561018f5780820380516001836020036101000a031916815260200191505b50838103825285818151815260200191508051906020019080838360005b838110156101c55780820151838201526020016101ad565b50505050905090810190601f1680156101f25780820380516001836020036101000a031916815260200191505b509550505050505060405180910390f35b341561020e57600080fd5b6100bb6104ba565b61029e60046024813581810190830135806020601f8201819004810201604051908101604052818152929190602084018383808284378201915050505050509190803590602001908201803590602001908080601f0160208091040260200160405190810160405281815292919060208401838380828437509496506104c095505050505050565b604051901515815260200160405180910390f35b34156102bd57600080fd5b6100e0600435610760565b61029e600160a060020a0360043516610788565b34156102e757600080fd5b6102ef610899565b005b34156102fc57600080fd5b6100bb610905565b341561030f57600080fd5b6100bb61090b565b60025481565b600454600160a060020a031681565b610334610911565b61033c610911565b600160a060020a0383166000908152600560205260408120600481015460ff16151561036757600080fd5b80600101816002018260030154828054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156104095780601f106103de57610100808354040283529160200191610409565b820191906000526020600020905b8154815290600101906020018083116103ec57829003601f168201915b50505050509250818054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156104a55780601f1061047a576101008083540402835291602001916104a5565b820191906000526020600020905b81548152906001019060200180831161048857829003601f168201915b50505050509150935093509350509193909250565b60035481565b600080543410156104d057600080fd5b6001544211156104df57600080fd5b600160a060020a03331660009081526005602052604090206004015460ff1615156107565760a06040519081016040908152600160a060020a03331680835260208084018790528284018690526000606085018190526001608086015291825260059052208151815473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a0391909116178155602082015181600101908051610588929160200190610923565b506040820151816002019080516105a3929160200190610923565b50606082015181600301556080820151600491909101805460ff19169115159190911790555060068054600181016105db83826109a1565b506000918252602080832091909101805473ffffffffffffffffffffffffffffffffffffffff191633600160a060020a03811691821790925560065460075583526005909152604091829020600401547fa31614ce68f0443c0017f17939642084995e6a8b91736cac18520b829b157c33928691869160ff9091169051600160a060020a03851681528115156060820152608060208201818152906040830190830186818151815260200191508051906020019080838360005b838110156106ad578082015183820152602001610695565b50505050905090810190601f1680156106da5780820380516001836020036101000a031916815260200191505b50838103825285818151815260200191508051906020019080838360005b838110156107105780820151838201526020016106f8565b50505050905090810190601f16801561073d5780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390a150600161075a565b5060005b92915050565b600680548290811061076e57fe5b600091825260209091200154600160a060020a0316905081565b60003481901161079757600080fd5b6002544211806107a957506001544211155b156107b357600080fd5b600160a060020a03821660009081526005602052604090206004015460ff1615156107dd57600080fd5b600160a060020a038216600090815260056020526040902060039081018054340190819055905490111561084d576004805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a038416908117909155600090815260056020526040902060039081015490555b7fdaf9d988cff8579fb76d980affd31da41317fddf02e5134b4c00220b2cb2f3748234604051600160a060020a03909216825260208201526040908101905180910390a1506001919050565b6002544210610903576004546003547f8fba92fdc99409a91fdfb6b6b1da7ddf633a9c3cc3fc11f237866e54321d39a991600160a060020a031690604051600160a060020a03909216825260208201526040908101905180910390a1600454600160a060020a0316ff5b565b60075481565b60015481565b60206040519081016040526000815290565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061096457805160ff1916838001178555610991565b82800160010185558215610991579182015b82811115610991578251825591602001919060010190610976565b5061099d9291506109ca565b5090565b8154818355818115116109c5576000838152602090206109c59181019083016109ca565b505050565b6109e491905b8082111561099d57600081556001016109d0565b905600a165627a7a7230582084ede253ea549df90d0ff9dd3e1c87f9e93af0a77fefa9d1aa472e11fdfe33920029`
 
 // DeployWinnerTakesAll deploys a new Ethereum contract, binding an instance of WinnerTakesAll to it.
 func DeployWinnerTakesAll(auth *bind.TransactOpts, backend bind.ContractBackend, _minimumEntryFee *big.Int, _durationProjects *big.Int, _durationCampaign *big.Int) (common.Address, *types.Transaction, *WinnerTakesAll, error) {
@@ -29,13 +31,14 @@ func DeployWinnerTakesAll(auth *bind.TransactOpts, backend bind.ContractBackend,
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
-	return address, tx, &WinnerTakesAll{WinnerTakesAllCaller: WinnerTakesAllCaller{contract: contract}, WinnerTakesAllTransactor: WinnerTakesAllTransactor{contract: contract}}, nil
+	return address, tx, &WinnerTakesAll{WinnerTakesAllCaller: WinnerTakesAllCaller{contract: contract}, WinnerTakesAllTransactor: WinnerTakesAllTransactor{contract: contract}, WinnerTakesAllFilterer: WinnerTakesAllFilterer{contract: contract}}, nil
 }
 
 // WinnerTakesAll is an auto generated Go binding around an Ethereum contract.
 type WinnerTakesAll struct {
 	WinnerTakesAllCaller     // Read-only binding to the contract
 	WinnerTakesAllTransactor // Write-only binding to the contract
+	WinnerTakesAllFilterer   // Log filterer for contract events
 }
 
 // WinnerTakesAllCaller is an auto generated read-only Go binding around an Ethereum contract.
@@ -45,6 +48,11 @@ type WinnerTakesAllCaller struct {
 
 // WinnerTakesAllTransactor is an auto generated write-only Go binding around an Ethereum contract.
 type WinnerTakesAllTransactor struct {
+	contract *bind.BoundContract // Generic contract wrapper for the low level calls
+}
+
+// WinnerTakesAllFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+type WinnerTakesAllFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
@@ -87,16 +95,16 @@ type WinnerTakesAllTransactorRaw struct {
 
 // NewWinnerTakesAll creates a new instance of WinnerTakesAll, bound to a specific deployed contract.
 func NewWinnerTakesAll(address common.Address, backend bind.ContractBackend) (*WinnerTakesAll, error) {
-	contract, err := bindWinnerTakesAll(address, backend, backend)
+	contract, err := bindWinnerTakesAll(address, backend, backend, backend)
 	if err != nil {
 		return nil, err
 	}
-	return &WinnerTakesAll{WinnerTakesAllCaller: WinnerTakesAllCaller{contract: contract}, WinnerTakesAllTransactor: WinnerTakesAllTransactor{contract: contract}}, nil
+	return &WinnerTakesAll{WinnerTakesAllCaller: WinnerTakesAllCaller{contract: contract}, WinnerTakesAllTransactor: WinnerTakesAllTransactor{contract: contract}, WinnerTakesAllFilterer: WinnerTakesAllFilterer{contract: contract}}, nil
 }
 
 // NewWinnerTakesAllCaller creates a new read-only instance of WinnerTakesAll, bound to a specific deployed contract.
 func NewWinnerTakesAllCaller(address common.Address, caller bind.ContractCaller) (*WinnerTakesAllCaller, error) {
-	contract, err := bindWinnerTakesAll(address, caller, nil)
+	contract, err := bindWinnerTakesAll(address, caller, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -105,20 +113,29 @@ func NewWinnerTakesAllCaller(address common.Address, caller bind.ContractCaller)
 
 // NewWinnerTakesAllTransactor creates a new write-only instance of WinnerTakesAll, bound to a specific deployed contract.
 func NewWinnerTakesAllTransactor(address common.Address, transactor bind.ContractTransactor) (*WinnerTakesAllTransactor, error) {
-	contract, err := bindWinnerTakesAll(address, nil, transactor)
+	contract, err := bindWinnerTakesAll(address, nil, transactor, nil)
 	if err != nil {
 		return nil, err
 	}
 	return &WinnerTakesAllTransactor{contract: contract}, nil
 }
 
+// NewWinnerTakesAllFilterer creates a new log filterer instance of WinnerTakesAll, bound to a specific deployed contract.
+func NewWinnerTakesAllFilterer(address common.Address, filterer bind.ContractFilterer) (*WinnerTakesAllFilterer, error) {
+	contract, err := bindWinnerTakesAll(address, nil, nil, filterer)
+	if err != nil {
+		return nil, err
+	}
+	return &WinnerTakesAllFilterer{contract: contract}, nil
+}
+
 // bindWinnerTakesAll binds a generic wrapper to an already deployed contract.
-func bindWinnerTakesAll(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor) (*bind.BoundContract, error) {
+func bindWinnerTakesAll(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
 	parsed, err := abi.JSON(strings.NewReader(WinnerTakesAllABI))
 	if err != nil {
 		return nil, err
 	}
-	return bind.NewBoundContract(address, parsed, caller, transactor), nil
+	return bind.NewBoundContract(address, parsed, caller, transactor, filterer), nil
 }
 
 // Call invokes the (constant) contract method with params as input values and
@@ -416,4 +433,375 @@ func (_WinnerTakesAll *WinnerTakesAllSession) SupportProject(addr common.Address
 // Solidity: function supportProject(addr address) returns(success bool)
 func (_WinnerTakesAll *WinnerTakesAllTransactorSession) SupportProject(addr common.Address) (*types.Transaction, error) {
 	return _WinnerTakesAll.Contract.SupportProject(&_WinnerTakesAll.TransactOpts, addr)
+}
+
+// WinnerTakesAllPayedOutToIterator is returned from FilterPayedOutTo and is used to iterate over the raw logs and unpacked data for PayedOutTo events raised by the WinnerTakesAll contract.
+type WinnerTakesAllPayedOutToIterator struct {
+	Event *WinnerTakesAllPayedOutTo // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *WinnerTakesAllPayedOutToIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(WinnerTakesAllPayedOutTo)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(WinnerTakesAllPayedOutTo)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *WinnerTakesAllPayedOutToIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *WinnerTakesAllPayedOutToIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// WinnerTakesAllPayedOutTo represents a PayedOutTo event raised by the WinnerTakesAll contract.
+type WinnerTakesAllPayedOutTo struct {
+	Addr         common.Address
+	WinningFunds *big.Int
+	Raw          types.Log // Blockchain specific contextual infos
+}
+
+// FilterPayedOutTo is a free log retrieval operation binding the contract event 0x8fba92fdc99409a91fdfb6b6b1da7ddf633a9c3cc3fc11f237866e54321d39a9.
+//
+// Solidity: event PayedOutTo(addr address, winningFunds uint256)
+func (_WinnerTakesAll *WinnerTakesAllFilterer) FilterPayedOutTo(opts *bind.FilterOpts) (*WinnerTakesAllPayedOutToIterator, error) {
+
+	logs, sub, err := _WinnerTakesAll.contract.FilterLogs(opts, "PayedOutTo")
+	if err != nil {
+		return nil, err
+	}
+	return &WinnerTakesAllPayedOutToIterator{contract: _WinnerTakesAll.contract, event: "PayedOutTo", logs: logs, sub: sub}, nil
+}
+
+// WatchPayedOutTo is a free log subscription operation binding the contract event 0x8fba92fdc99409a91fdfb6b6b1da7ddf633a9c3cc3fc11f237866e54321d39a9.
+//
+// Solidity: event PayedOutTo(addr address, winningFunds uint256)
+func (_WinnerTakesAll *WinnerTakesAllFilterer) WatchPayedOutTo(opts *bind.WatchOpts, sink chan<- *WinnerTakesAllPayedOutTo) (event.Subscription, error) {
+
+	logs, sub, err := _WinnerTakesAll.contract.WatchLogs(opts, "PayedOutTo")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(WinnerTakesAllPayedOutTo)
+				if err := _WinnerTakesAll.contract.UnpackLog(event, "PayedOutTo", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// WinnerTakesAllProjectSubmittedIterator is returned from FilterProjectSubmitted and is used to iterate over the raw logs and unpacked data for ProjectSubmitted events raised by the WinnerTakesAll contract.
+type WinnerTakesAllProjectSubmittedIterator struct {
+	Event *WinnerTakesAllProjectSubmitted // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *WinnerTakesAllProjectSubmittedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(WinnerTakesAllProjectSubmitted)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(WinnerTakesAllProjectSubmitted)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *WinnerTakesAllProjectSubmittedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *WinnerTakesAllProjectSubmittedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// WinnerTakesAllProjectSubmitted represents a ProjectSubmitted event raised by the WinnerTakesAll contract.
+type WinnerTakesAllProjectSubmitted struct {
+	Addr        common.Address
+	Name        string
+	Url         string
+	Initialized bool
+	Raw         types.Log // Blockchain specific contextual infos
+}
+
+// FilterProjectSubmitted is a free log retrieval operation binding the contract event 0xa31614ce68f0443c0017f17939642084995e6a8b91736cac18520b829b157c33.
+//
+// Solidity: event ProjectSubmitted(addr address, name string, url string, initialized bool)
+func (_WinnerTakesAll *WinnerTakesAllFilterer) FilterProjectSubmitted(opts *bind.FilterOpts) (*WinnerTakesAllProjectSubmittedIterator, error) {
+
+	logs, sub, err := _WinnerTakesAll.contract.FilterLogs(opts, "ProjectSubmitted")
+	if err != nil {
+		return nil, err
+	}
+	return &WinnerTakesAllProjectSubmittedIterator{contract: _WinnerTakesAll.contract, event: "ProjectSubmitted", logs: logs, sub: sub}, nil
+}
+
+// WatchProjectSubmitted is a free log subscription operation binding the contract event 0xa31614ce68f0443c0017f17939642084995e6a8b91736cac18520b829b157c33.
+//
+// Solidity: event ProjectSubmitted(addr address, name string, url string, initialized bool)
+func (_WinnerTakesAll *WinnerTakesAllFilterer) WatchProjectSubmitted(opts *bind.WatchOpts, sink chan<- *WinnerTakesAllProjectSubmitted) (event.Subscription, error) {
+
+	logs, sub, err := _WinnerTakesAll.contract.WatchLogs(opts, "ProjectSubmitted")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(WinnerTakesAllProjectSubmitted)
+				if err := _WinnerTakesAll.contract.UnpackLog(event, "ProjectSubmitted", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// WinnerTakesAllProjectSupportedIterator is returned from FilterProjectSupported and is used to iterate over the raw logs and unpacked data for ProjectSupported events raised by the WinnerTakesAll contract.
+type WinnerTakesAllProjectSupportedIterator struct {
+	Event *WinnerTakesAllProjectSupported // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *WinnerTakesAllProjectSupportedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(WinnerTakesAllProjectSupported)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(WinnerTakesAllProjectSupported)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *WinnerTakesAllProjectSupportedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *WinnerTakesAllProjectSupportedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// WinnerTakesAllProjectSupported represents a ProjectSupported event raised by the WinnerTakesAll contract.
+type WinnerTakesAllProjectSupported struct {
+	Addr   common.Address
+	Amount *big.Int
+	Raw    types.Log // Blockchain specific contextual infos
+}
+
+// FilterProjectSupported is a free log retrieval operation binding the contract event 0xdaf9d988cff8579fb76d980affd31da41317fddf02e5134b4c00220b2cb2f374.
+//
+// Solidity: event ProjectSupported(addr address, amount uint256)
+func (_WinnerTakesAll *WinnerTakesAllFilterer) FilterProjectSupported(opts *bind.FilterOpts) (*WinnerTakesAllProjectSupportedIterator, error) {
+
+	logs, sub, err := _WinnerTakesAll.contract.FilterLogs(opts, "ProjectSupported")
+	if err != nil {
+		return nil, err
+	}
+	return &WinnerTakesAllProjectSupportedIterator{contract: _WinnerTakesAll.contract, event: "ProjectSupported", logs: logs, sub: sub}, nil
+}
+
+// WatchProjectSupported is a free log subscription operation binding the contract event 0xdaf9d988cff8579fb76d980affd31da41317fddf02e5134b4c00220b2cb2f374.
+//
+// Solidity: event ProjectSupported(addr address, amount uint256)
+func (_WinnerTakesAll *WinnerTakesAllFilterer) WatchProjectSupported(opts *bind.WatchOpts, sink chan<- *WinnerTakesAllProjectSupported) (event.Subscription, error) {
+
+	logs, sub, err := _WinnerTakesAll.contract.WatchLogs(opts, "ProjectSupported")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(WinnerTakesAllProjectSupported)
+				if err := _WinnerTakesAll.contract.UnpackLog(event, "ProjectSupported", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
 }
