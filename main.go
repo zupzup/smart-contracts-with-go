@@ -18,7 +18,8 @@ func main() {
 
 	alloc := make(core.GenesisAlloc)
 	alloc[auth.From] = core.GenesisAccount{Balance: big.NewInt(133700000)}
-	sim := backends.NewSimulatedBackend(alloc)
+	gasLimit := 300000
+	sim := backends.NewSimulatedBackend(alloc, gasLimit)
 
 	// deploy contract
 	addr, _, contract, err := DeployWinnerTakesAll(auth, sim, big.NewInt(10), big.NewInt(time.Now().Add(2*time.Minute).Unix()), big.NewInt(time.Now().Add(5*time.Minute).Unix()))
